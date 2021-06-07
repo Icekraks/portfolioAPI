@@ -11,13 +11,13 @@ module.exports = {
 		next();
 	},
 
-	getVideos: function getVideos(res,next){
+	getVideos: function getVideos(req,res,next){
 		res.header('token','given-token');
-		res.contentType = 'string'
-		let jsonObject = [
+		res.contentType = 'json'
+		let jsonObject = {videos:[
 			{videoID: 1},
 			{videoID: 2},
-		]
+		]}
 		res.send(jsonObject);
 		next();
 	},
@@ -37,9 +37,9 @@ module.exports = {
 	},
 
 
-	getAllUsers: function getAllUsers(res,next){
+	getAllUsers: function getAllUsers(req,res,next){
 		res.header('token','given-token');
-		res.contentType = 'string'
+		res.contentType = 'json'
 		let jsonObject = [
 			{userID: 1},
 			{userID: 2},
@@ -48,7 +48,7 @@ module.exports = {
 		next();
 	},
 
-	getUser: function getUserDetails(res,next){
+	getUser: function getUserDetails(req,res,next){
 		res.header('token','given-token');
 		res.contentType = 'json';
 		let jsonObject =

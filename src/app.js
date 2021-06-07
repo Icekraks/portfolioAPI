@@ -10,7 +10,6 @@ let server = restify.createServer();
 server.get('/hello/:name',functions.greeting);
 server.head('/hello/:name',functions.greeting);
 
-
 server.get('/osrs',functions.osrs);
 server.head('/osrs',functions.osrs);
 
