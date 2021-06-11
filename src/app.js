@@ -1,17 +1,27 @@
 let restify = require('restify');
-let functions = require('./functions')
+let functions = require('./functions');
+let corsMiddleware = require('restify-cors-middleware');
+
+const cors = corsMiddleware({
+	origins: ["*"],
+	allowHeaders: ["*"],
+	exposeHeaders: ["*"]
+});
+
 
 const SERVERURL = '';
 
 
 let server = restify.createServer();
 
+server.pre(cors.preflight);
+server.use(cors.actual);
 
 server.get('/hello/:name',functions.greeting);
 server.head('/hello/:name',functions.greeting);
 
-server.get('/osrs',functions.osrs);
-server.head('/osrs',functions.osrs);
+server.get('/osrs/:name',functions.osrs);
+server.head('/osrs/:name',functions.osrs);
 
 server.get('/videos',functions.getVideos);
 server.head('/videos',functions.getVideos);
@@ -32,5 +42,4 @@ server.head('/videos/:videoID',functions.getVideo);
 server.listen(8080,function(){
 	console.log('%s listening at %s', server.name, server.url);
 })
-
 

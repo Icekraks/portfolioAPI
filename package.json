@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "got": "^11.8.2",
+    "node-fetch": "^2.6.1",
     "restify": "^8.5.1",
+    "restify-cors-middleware": "^1.1.1",
     "yarn": "^1.22.10"
   }
 }

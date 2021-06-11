@@ -1,3 +1,26 @@
+const fetch = require('node-fetch');
+
+const OSRSAPI = 'http://secure.runescape.com/m=hiscore_oldschool/index_lite.ws?player='
+
+
+
+async function getOSRSStats(name){
+	let APIString = OSRSAPI + name;
+	let result
+	try{
+		result = await fetch(APIString);
+
+	} catch (e){
+		console.log(e);
+		return new Error(e);
+	}
+	if (result.error) {
+		console.log(result.error)
+		return new Error(result.error);
+	}
+	return result;
+}
+
 module.exports = {
 	greeting: function response(req,res,next){
 		res.send('Hello '+ req.params.name);
@@ -5,6 +28,9 @@ module.exports = {
 	},
 
 	osrs: function osrsStats(req,res,next){
+
+		let osrsStatAPI = getOSRSStats(req.params.name).then(r => r.json() );
+		console.log(osrsStatAPI)
 		res.header('token','given-token');
 		res.contentType = 'json';
 		res.send({hello: 'world'});
