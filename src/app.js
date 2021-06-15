@@ -16,6 +16,10 @@ let server = restify.createServer();
 
 server.pre(cors.preflight);
 server.use(cors.actual);
+server.use(restify.plugins.bodyParser({
+	maxBodySize:0,
+	mapParams: true,
+}))
 
 server.get('/hello/:name',functions.greeting);
 server.head('/hello/:name',functions.greeting);
@@ -38,6 +42,8 @@ server.head('/user/:userID',functions.findUser);
 server.get('/videos/:videoID',functions.getVideo);
 server.head('/videos/:videoID',functions.getVideo);
 
+server.post('/user/addUser',functions.createUser);
+server.head('/user/addUser',functions.createUser);
 
 server.listen(8080,function(){
 	console.log('%s listening at %s', server.name, server.url);
