@@ -19,6 +19,7 @@ server.use(cors.actual);
 server.use(restify.plugins.bodyParser({
 	maxBodySize:0,
 	mapParams: true,
+	requestBodyOnGet: true
 }))
 
 server.get('/hello/:name',functions.greeting);
@@ -30,8 +31,8 @@ server.head('/osrs/:name',functions.osrs);
 server.get('/videos',functions.getVideos);
 server.head('/videos',functions.getVideos);
 
-server.get('/user',functions.getUser);
-server.head('/user',functions.getUser);
+server.get('/user/getUser',functions.getUser);
+server.head('/user/getUser',functions.getUser);
 
 server.get('/allUser',functions.getAllUsers);
 server.head('/allUser',functions.getAllUsers);
@@ -44,6 +45,15 @@ server.head('/videos/:videoID',functions.getVideo);
 
 server.post('/user/addUser',functions.createUser);
 server.head('/user/addUser',functions.createUser);
+
+server.use((req, res, err, next) => {
+	if(err){
+		res.send(500,'ur shit doesnt work');
+		next();
+		//send error fuck you ur shit doesnt work
+	}
+})
+
 
 server.listen(8080,function(){
 	console.log('%s listening at %s', server.name, server.url);
